@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocParserWeb", "DocParserWeb\DocParserWeb.csproj", "{21D0572A-C9E8-457A-AB31-7A95E1A030BF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StringGenerator", "StringGenerator\StringGenerator\StringGenerator.csproj", "{2E1D58AA-0576-49C7-AE83-C8660567BB24}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StringGeneratorUnitTests", "StringGenerator\StringGeneratorUnitTests\StringGeneratorUnitTests.csproj", "{0EBE2290-A468-412A-99F1-7483B8D64284}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{21D0572A-C9E8-457A-AB31-7A95E1A030BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21D0572A-C9E8-457A-AB31-7A95E1A030BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21D0572A-C9E8-457A-AB31-7A95E1A030BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E1D58AA-0576-49C7-AE83-C8660567BB24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E1D58AA-0576-49C7-AE83-C8660567BB24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E1D58AA-0576-49C7-AE83-C8660567BB24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E1D58AA-0576-49C7-AE83-C8660567BB24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EBE2290-A468-412A-99F1-7483B8D64284}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EBE2290-A468-412A-99F1-7483B8D64284}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EBE2290-A468-412A-99F1-7483B8D64284}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EBE2290-A468-412A-99F1-7483B8D64284}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

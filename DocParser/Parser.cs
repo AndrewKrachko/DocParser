@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DocParser
 {
@@ -29,6 +30,7 @@ namespace DocParser
                     stream.ReadAsync(buffer, 0, (int)stream.Length);
                     ParseToUniqStoreItems(buffer, storeList);
                 }
+
                 return storeList;
             }
             catch (Exception)
@@ -37,7 +39,27 @@ namespace DocParser
             }
         }
 
-        public void ParseToUniqStoreItems(byte[] buffer, List<StoreItem> tupleList)
+        public async Task<List<StoreItem>> ParseStreamAsync(Stream stream)
+        {
+            try
+            {
+                var storeList = new List<StoreItem>();
+                if (stream.CanRead)
+                {
+                    var buffer = new byte[stream.Length];
+                    await stream.ReadAsync(buffer, 0, (int)stream.Length);
+                    ParseToUniqStoreItems(buffer, storeList);
+                }
+
+                return storeList;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void ParseToUniqStoreItems(byte[] buffer, List<StoreItem> storeItems)
         {
             try
             {
@@ -46,15 +68,7 @@ namespace DocParser
                 {
                     if (TryParseToStoreItem(substring, out var storeItem))
                     {
-                        var tupleListItem = tupleList.FirstOrDefault(t => t.Name.ToUpper() == storeItem.Name.ToUpper());
-                        if (tupleListItem != null)
-                        {
-                            tupleListItem.Count += storeItem.Count;
-                        }
-                        else
-                        {
-                            tupleList.Add(storeItem);
-                        }
+                        AddStoreItemToList(storeItems, storeItem);
                     }
                 }
             }
@@ -62,7 +76,19 @@ namespace DocParser
             {
                 _logger.LogWarning("Неверная кодировка файла.");
             }
+        }
 
+        public static void AddStoreItemToList(List<StoreItem> storeItems, StoreItem storeItem)
+        {
+            var tupleListItem = storeItems.FirstOrDefault(t => t.Name.ToUpper() == storeItem.Name.ToUpper());
+            if (tupleListItem != null)
+            {
+                tupleListItem.Count += storeItem.Count;
+            }
+            else
+            {
+                storeItems.Add(storeItem);
+            }
         }
 
         public bool TryParseToStoreItem(string substring, out StoreItem storeItem)

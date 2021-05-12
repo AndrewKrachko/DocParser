@@ -1,8 +1,95 @@
-﻿@{
+﻿@model StoreDataSourceModel
+@{
     ViewData["Title"] = "Home Page";
 }
-
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h6 class="display-4">Select data type and source:</h6>
+    <form method="post" id="uploader">
+        <div>
+            Data input mode
+        </div>
+        <div>
+            <input id="fileSystemRadio" type="radio" name="input_mode" value="fileSystemRadio" asp-for="@Model.input_mode" checked />
+            <label>Get from local files</label>
+        </div>
+        <div>
+            <input id="webRadio" type="radio" name="input_mode" value="webRadio" asp-for="@Model.input_mode" />
+            <label>Get from http resourses</label>
+        </div>
+        <div id="folderPicker">
+            Directory: <input type="file" webkitdirectory mozdirectory id="input_folder" name="input_folder" asp-for="@Model.input_folder" multiple="multiple" />
+        </div>
+        <div id="webList" hidden>
+            <label>Input web-resources: </label>
+            <textarea type="text" name="input_address" rows="10" cols="150" asp-for="@Model.input_address"></textarea>
+        </div>
+        <div style="margin-top: 12px">
+            <input id="submit" type="button" value="Merge" />
+        </div>
+    </form>
+    <div>
+        @if (Model != null && Model.storeItems != null && Model.storeItems.Count > 0)
+        {
+            <table>
+                <tr>
+                    <th>Item name</th>
+                    <th>Item count</th>
+                </tr>
+                @foreach (var storeItem in Model.storeItems)
+                {
+                    <tr>
+                        <td>@storeItem.Name</td>
+                    </tr>
+                    <tr>
+                        <td>@storeItem.Count</td>
+                    </tr>
+                }
+            </table>
+        }
+    </div>
 </div>
+<!-- https://forums.asp.net/t/2116373.aspx?How+to+upload+folder+like+onedrive -->
+<script>
+    document.getElementById('submit').onclick = function () {
+        var folder = $("#input_folder");
+        var fldr = document.createElement('input');
+        fldr.type = 'file';
+        fldr.attributes = 'webkitdirectory mozdirectory';
+
+        var data = new FormData();
+        if (document.getElementById('fileSystemRadio').checked) {
+            data.append('input_mode', 'fileSystemRadio');
+            var filelist = folder[0].files;
+            for (var i = 0; i < filelist.length; i++) {
+                data.append(filelist[i].name, filelist[i]);
+            }
+        }
+        else {
+            data.append('input_mode', 'webRadio');
+            data.append('input_address', document.getElementById('input_address').value);
+        }
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '@Url.Action("Index","Home")', true);
+        xhr.send(data);
+    }
+
+    document.onload = function () {
+        var response = XMLHttpRequest;
+        console.log(response);
+    }
+
+    document.getElementById('fileSystemRadio').onchange = function () {
+        if (document.getElementById('fileSystemRadio').checked) {
+            document.getElementById('webList').hidden = true;
+            document.getElementById('folderPicker').hidden = false;
+        }
+    }
+
+    document.getElementById('webRadio').onchange = function () {
+        if (document.getElementById('webRadio').checked) {
+            document.getElementById('webList').hidden = false;
+            document.getElementById('folderPicker').hidden = true;
+        }
+    }
+</script>

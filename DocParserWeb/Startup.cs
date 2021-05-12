@@ -19,7 +19,7 @@ namespace DocParserWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+            services.Configure<ThreadingConfig>(Configuration.GetSection("Threading"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

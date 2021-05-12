@@ -93,6 +93,7 @@ namespace UnitTests
 
             Assert.AreNotEqual(6, storeList.Count);
         }
+
         [Test]
         public void ParseToUniqStoreItemsInvalidEncodingUtf7Test()
         {
@@ -103,6 +104,7 @@ namespace UnitTests
 
             Assert.AreNotEqual(6, storeList.Count);
         }
+
         [Test]
         public void ParseToUniqStoreItemsInvalidEncodingUtf32Test()
         {
@@ -112,6 +114,7 @@ namespace UnitTests
 
             Assert.AreNotEqual(6, storeList.Count);
         }
+
         [Test]
         public void ParseToUniqStoreItemsInvalidEncodingUnicodeTest()
         {
@@ -121,6 +124,7 @@ namespace UnitTests
 
             Assert.AreNotEqual(6, storeList.Count);
         }
+
         [Test]
         public void ParseToUniqStoreItemsInvalidEncodingUtf8Test()
         {
